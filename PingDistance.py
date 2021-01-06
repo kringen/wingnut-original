@@ -5,15 +5,15 @@ class Sonar:
         def __init__(self, triggerPin, echoPin):
                 self.triggerPin = triggerPin
                 self.echoPin = echoPin
-                GPIO.setup(self.triggerPin, GPIO.OUT)
-                GPIO.output(self.triggerPin, 0)
-                GPIO.setup(self.echoPin, GPIO.IN)
+                GPIO.setup(TRIG, GPIO.OUT)
+                GPIO.output(TRIG, 0)
+                GPIO.setup(ECHO, GPIO.IN)
 
         def getDistance(self):
                 # send 10 microsecond high
                 GPIO.output(self.triggerPin, 1)
                 time.sleep(0.00001)
-                GPIO.output(self.triggerPin, 0)
+                GPIO.output(self.triggerPin 0)
 
                 while GPIO.input(self.echoPin) == 0: # this loop runs until signal received
                         pass
