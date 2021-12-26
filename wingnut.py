@@ -1,25 +1,34 @@
-from head import Head
-import time
-from adafruit_servokit import ServoKit
+from redis import Redis
+from rq import Queue
+import logging
+from api import api
+import lgpio
 
-def survey(head, angle_increment, time_increment):
-   start_angle = 0
-   end_angle = 180
-   angle = start_angle
-   while head.angle < end_angle:
-      head.turn(angle)
-      time.sleep(time_increment)
-      angle += angle_increment
-   head.return_home()
+logger = logging.getLogger(__name__)
 
-def head_return(head, angle):
-   head.turn(angle)
+class WingNut:
+    def __init__(self):
+        self.log = logger
+        self.servoPin = 15
+        self.leftMotorPin1 = 33
+        self.leftMotorPin2 = 35
+        self.leftMotorEnablePin = 37
+        self.rightMotorPin1 = 31
+        self.rightMotorPin2 = 29
+        self.rightMotorEnablePin = 32
+        self.sonarTriggerPin = 11
+        self.sonarEchoPin = 13
+
+        self.distanceCenter = 0
+        self.distanceLeft = 0
+        self.distanceRight = 0
+        self.closestObject = ""
+        self.closestObjectDistance = 0
+
+    def start_api(self):
+        api.app.run(host="0.0.0.0",debug=1)
 
 if __name__ == "__main__":
-   kit = ServoKit(channels=16)
 
-   head_channel = kit.servo[0]
-
-   head = Head(head_channel, 90)
-
-   survey(head, 5, 0.5)
+    wingnut = WingNut()
+    wingnut.start_api()
