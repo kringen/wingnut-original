@@ -1,12 +1,12 @@
 from redis import Redis
 from rq import Queue
 import logging
-from api import api
+from ui import ui
 import lgpio
 
 logger = logging.getLogger(__name__)
 
-class WingNut:
+class Wingnut:
     def __init__(self):
         self.log = logger
         self.servoPin = 15
@@ -25,10 +25,24 @@ class WingNut:
         self.closestObject = ""
         self.closestObjectDistance = 0
 
-    def start_api(self):
-        api.app.run(host="0.0.0.0",debug=1)
+        self.diagnostics = {}
+
+    def start_ui(self):
+        ui.app.run(host="0.0.0.0",debug=1)
+
+    def get_diagnostics(self):
+        ##### SHOULD THIS GO HERE?
+        diagnostics = {}
+        diagnostics["power_level"] = 100
+        diagnostics["temperature"] = 40
+        diagnostics["free_memory_mb"] = 500
+        diagnostics["free_disk_space"] = 20
+        r = Redis()
+        r.mset(diagnostics)
+
 
 if __name__ == "__main__":
 
-    wingnut = WingNut()
-    wingnut.start_api()
+    wingnut = Wingnut()
+    wingnut.start_ui()
+    wingnut.get_diagnostics()

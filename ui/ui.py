@@ -3,6 +3,7 @@ from rq import Queue, Connection
 from flask import Flask, render_template, Blueprint, jsonify, request
 import tasks
 import rq_dashboard
+from wingnut import Wingnut
 
 app = Flask(
         __name__,
@@ -61,6 +62,41 @@ def get_status(task_id):
         }
     else:
         response_object = {"status": "error"}
+    return jsonify(response_object)
+
+@app.route("/configuration", methods=["GET"])
+def get_configuration():
+    wingnut = Wingnut()
+    response_object = {
+        "status": "success",
+        "data": {
+            "servoPin": wingnut.servoPin,
+            "leftMotorPin1": wingnut.leftMotorPin1,
+            "leftMotorPin1": wingnut.leftMotorPin2,
+            "leftMotorEnablePin": wingnut.leftMotorEnablePin,
+            "rightMotorPin1": wingnut.rightMotorPin1,
+            "rightMotorPin1": wingnut.rightMotorPin2,
+            "rightMotorEnablePin": wingnut.rightMotorEnablePin,
+            "sonarTriggerPin": wingnut.sonarTriggerPin,
+            "sonarEchoPin": wingnut.sonarEchoPin
+        }
+    }
+    return jsonify(response_object)
+
+@app.route("/diagnostics", methods=["GET"])
+def get_diagnostics():
+    r = redis.Redis()
+    diagnostics = {}
+    diagnostics["power_level"] = r.get("power_level").decode("utf-8")
+    diagnostics["temperature"] = r.get("temperature").decode("utf-8")
+    diagnostics["free_memory_mb"] = r.get("free_memory_mb").decode("utf-8")
+    diagnostics["free_disk_space"] = r.get("free_disk_space").decode("utf-8")
+    response_object = {
+        "status": "success",
+        "data": {
+            "diagnostics": diagnostics
+        }
+    }
     return jsonify(response_object)
 
 if __name__ == "__main__":

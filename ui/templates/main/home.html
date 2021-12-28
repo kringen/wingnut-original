@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="starter-template">
-    <h1>Flask + Redis Queue + Docker</h1>
+    <h1>Wingnut</h1>
     <hr><br>
     <a href="/rq">rq dashboard</a>
     <br />
@@ -17,6 +17,34 @@
       </div>
     </div>
     <br><br>
+    <div>
+      <h3>Configuration</h3>
+      <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Setting</th>
+            <th>Pin Value</th>
+          </tr>
+        </thead>
+        <tbody id="configuration">
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3>Diagnostics</h3>
+      <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody id="diagnostics">
+        </tbody>
+      </table>
+    </div>
     <div>
       <h3>Task Status</h3>
       <br>

@@ -11,7 +11,10 @@ $('.btn').on('click', function() {
     method: 'POST'
   })
   .done((res) => {
-    getStatus(res.data.task_id);
+    //getStatus(res.data.task_id);
+    console.log("button clicked")
+    getConfiguration();
+    getDiagnostics();
   })
   .fail((err) => {
     console.log(err);
@@ -39,5 +42,31 @@ function getStatus(taskID) {
   })
   .fail((err) => {
     console.log(err);
+  });
+}
+
+function getConfiguration() {
+  $.ajax({
+    url: `/configuration`,
+    method: 'GET'
+  })
+  .done((res) => {
+    console.log(res.data)
+    $.each(res.data, function(key, value){
+      $("#configuration").append('<tr><td>'+key+'</td><td>'+value+'</td></tr>');
+    })
+  });
+}
+
+function getDiagnostics() {
+  $.ajax({
+    url: `/diagnostics`,
+    method: 'GET'
+  })
+  .done((res) => {
+    console.log(res.data)
+    $.each(res.data.diagnostics, function(key, value){
+      $("#diagnostics").append('<tr><td>'+key+'</td><td>'+value+'</td></tr>');
+    })
   });
 }
