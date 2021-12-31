@@ -7,17 +7,17 @@ import lgpio
 logger = logging.getLogger(__name__)
 
 class Wingnut:
-    def __init__(self):
+    def __init__(self, config):
         self.log = logger
-        self.servoPin = 15
-        self.leftMotorPin1 = 33
-        self.leftMotorPin2 = 35
-        self.leftMotorEnablePin = 37
-        self.rightMotorPin1 = 31
-        self.rightMotorPin2 = 29
-        self.rightMotorEnablePin = 32
-        self.sonarTriggerPin = 11
-        self.sonarEchoPin = 13
+        self.servoPin = config["configuration"]["servoPin"]
+        self.leftMotorPin1 = config["configuration"]["leftMotorPin1"]
+        self.leftMotorPin2 = config["configuration"]["leftMotorPin2"]
+        self.leftMotorEnablePin = config["configuration"]["leftMotorEnablePin"]
+        self.rightMotorPin1 = config["configuration"]["rightMotorPin1"]
+        self.rightMotorPin2 = config["configuration"]["rightMotorPin2"]
+        self.rightMotorEnablePin = config["configuration"]["rightMotorEnablePin"]
+        self.sonarTriggerPin = config["configuration"]["sonarTriggerPin"]
+        self.sonarEchoPin = config["configuration"]["sonarEchoPin"]
 
         self.distanceCenter = 0
         self.distanceLeft = 0

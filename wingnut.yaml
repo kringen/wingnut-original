@@ -1,0 +1,10 @@
+configuration:
+  servoPin: 15
+  leftMotorPin1: 33
+  leftMotorPin2: 35
+  leftMotorEnablePin: 37
+  rightMotorPin1: 31
+  rightMotorPin2: 29
+  rightMotorEnablePin: 32
+  sonarTriggerPin: 11
+  sonarEchoPin: 13

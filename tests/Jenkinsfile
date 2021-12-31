@@ -1,0 +1,8 @@
+node {
+  stage('Build Tasks') {
+      openshift.withCluster() {
+          openshift.withProject("sandbox") {
+              openshift.selector("bc", "vote-app").startBuild("--wait=true")
+      }
+    }
+  }

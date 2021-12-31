@@ -52,7 +52,7 @@ function getConfiguration() {
   })
   .done((res) => {
     console.log(res.data)
-    $.each(res.data, function(key, value){
+    $.each(res.data.configuration, function(key, value){
       $("#configuration").append('<tr><td>'+key+'</td><td>'+value+'</td></tr>');
     })
   });

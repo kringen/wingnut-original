@@ -7,6 +7,10 @@ WORKDIR /app
 
 COPY requirements.txt requirements.txt
 
+RUN mkdir -p /etc/wingnut
+
+COPY wingnut.yaml /etc/wingnut/
+
 RUN pip3 install -r requirements.txt
 
 COPY . .

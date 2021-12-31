@@ -1,0 +1,19 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: wingnut
+  labels:
+    app: wingnut
+spec:
+  source:
+    type: Git
+    git:
+      uri: https://github.com/kringen/wingnut
+  strategy:
+    type: Docker                      
+    dockerStrategy:
+      dockerfilePath: Dockerfile    # Look for Dockerfile in: gitUri/contextDir/dockerfilePath
+  output:
+    to:
+      kind: ImageStreamTag
+      name: wingnut:latest
