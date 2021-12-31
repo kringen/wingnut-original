@@ -1,7 +1,7 @@
 node {
   stage('Build Tasks') {
       openshift.withCluster() {
-          openshift.withProject("sandbox") {
+          openshift.withProject("devops") {
               openshift.selector("bc", "wingnut").startBuild("--wait=true")
       }
     }
