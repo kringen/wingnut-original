@@ -18,8 +18,10 @@ podTemplate(
 {
     node('wingnut-tests') {
         stage('tests') {
-               echo "Running tests"
-               sh "python -m pytest"
-             }
+          echo "Running tests"
+          container('wingnut') {
+              sh "python -m pytest"
+          }   
+        }
     }
 }
