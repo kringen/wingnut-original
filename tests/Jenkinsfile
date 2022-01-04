@@ -1,3 +1,26 @@
+// oc policy add-role-to-user edit system:serviceaccount:devops:jenkins -n sandbox
+// oc policy add-role-to-user edit system:serviceaccount:devops:jenkins -n sandbox
+// oc policy add-role-to-user system:image-puller system:serviceaccount:devops:jenkins -n sandbox
+
+podTemplate(
+  label: 'test-container',
+  cloud: 'openshift', //This needs to match the cloud name in jenkins-kubernetes-plugin config
+  yaml: """
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wingnut
+spec:
+  containers:
+  - name: wingnut
+    image: "image-registry.openshift-image-registry.svc:5000/devops/wingnut:latest"
+    imagePullPolicy: Always
+    tty: true
+"""
+)
+
+{
+
 node {
   stage('Build Tasks') {
       openshift.withCluster() {
@@ -6,4 +29,14 @@ node {
       }
     }
   }
+}
+
+node('test-container') {
+    stage('tests') {
+        echo "Running tests"
+        container('wingnut') {
+            sh "python /app/tests/test_wingnut.py"
+        }   
+    }
+}
 }
