@@ -1,23 +1,28 @@
+import multiprocessing
 from redis import Redis
-from rq import Queue
+from rq import Queue, Connection, Worker
 import logging
-from ui import ui
 import lgpio
+import yaml
 
-logger = logging.getLogger(__name__)
+
+logging.basicConfig(level=logging.DEBUG)
 
 class Wingnut:
-    def __init__(self, config):
-        self.log = logger
-        self.servoPin = config["configuration"]["servoPin"]
-        self.leftMotorPin1 = config["configuration"]["leftMotorPin1"]
-        self.leftMotorPin2 = config["configuration"]["leftMotorPin2"]
-        self.leftMotorEnablePin = config["configuration"]["leftMotorEnablePin"]
-        self.rightMotorPin1 = config["configuration"]["rightMotorPin1"]
-        self.rightMotorPin2 = config["configuration"]["rightMotorPin2"]
-        self.rightMotorEnablePin = config["configuration"]["rightMotorEnablePin"]
-        self.sonarTriggerPin = config["configuration"]["sonarTriggerPin"]
-        self.sonarEchoPin = config["configuration"]["sonarEchoPin"]
+    def __init__(self):
+        with open("wingnut.yaml", "r") as configfile:
+            self.config = yaml.safe_load(configfile)
+        self.worker_count = self.config["worker"]["count"]
+        self.worker_queues = self.config["worker"]["queues"]
+        self.servoPin = self.config["configuration"]["servoPin"]
+        self.leftMotorPin1 = self.config["configuration"]["leftMotorPin1"]
+        self.leftMotorPin2 = self.config["configuration"]["leftMotorPin2"]
+        self.leftMotorEnablePin = self.config["configuration"]["leftMotorEnablePin"]
+        self.rightMotorPin1 = self.config["configuration"]["rightMotorPin1"]
+        self.rightMotorPin2 = self.config["configuration"]["rightMotorPin2"]
+        self.rightMotorEnablePin = self.config["configuration"]["rightMotorEnablePin"]
+        self.sonarTriggerPin = self.config["configuration"]["sonarTriggerPin"]
+        self.sonarEchoPin = self.config["configuration"]["sonarEchoPin"]
 
         self.distanceCenter = 0
         self.distanceLeft = 0
@@ -27,11 +32,19 @@ class Wingnut:
 
         self.diagnostics = {}
 
-    def start_ui(self):
-        ui.app.run(host="0.0.0.0",debug=1)
+        self.redis_url = self.config["configuration"]["redis_url"]
+        self.redis_connection = Redis.from_url(self.redis_url)
 
-    def get_diagnostics(self):
+    def start_workers(self):
+        for i in range(self.worker_count):
+            # Listen for tasks
+            with Connection(self.redis_connection):
+                worker = Worker(self.worker_queues)
+                multiprocessing.Process(target=worker.work).start()
+
+    def set_diagnostics(self):
         ##### SHOULD THIS GO HERE?
+        ### NO - maybe move it to its own service?
         diagnostics = {}
         diagnostics["power_level"] = 100
         diagnostics["temperature"] = 40
@@ -42,7 +55,8 @@ class Wingnut:
 
 
 if __name__ == "__main__":
-
     wingnut = Wingnut()
-    wingnut.start_ui()
-    wingnut.get_diagnostics()
+    wingnut.set_diagnostics()
+    wingnut.start_workers()
+    #wingnut.start_ui()
+    #wingnut.get_diagnostics()

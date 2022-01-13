@@ -6,13 +6,13 @@ $( document ).ready(() => {
 
 $('.btn').on('click', function() {
   $.ajax({
-    url: '/mode',
-    data: { type: $(this).data('type') },
+    url: '/tasks',
+    data: { "queue": $(this).data('queue'), "mode": $(this).data('mode') },
     method: 'POST'
   })
   .done((res) => {
     //getStatus(res.data.task_id);
-    console.log("button clicked")
+    console.log(res.data.task_id)
     getConfiguration();
     getDiagnostics();
   })
@@ -52,8 +52,11 @@ function getConfiguration() {
   })
   .done((res) => {
     console.log(res.data)
-    $.each(res.data.configuration, function(key, value){
-      $("#configuration").append('<tr><td>'+key+'</td><td>'+value+'</td></tr>');
+    $.each(res.data.configuration.gpio_pins, function(key, value){
+      $("#configuration").append('<div class="col-xs-4"> \
+        <div class="font-s12 text-white-op">'+key+'</div> \
+        <div class="font-s18 text-success">'+value+'</div> \
+        </div>')
     })
   });
 }
@@ -66,7 +69,12 @@ function getDiagnostics() {
   .done((res) => {
     console.log(res.data)
     $.each(res.data.diagnostics, function(key, value){
-      $("#diagnostics").append('<tr><td>'+key+'</td><td>'+value+'</td></tr>');
+      $("#diagnostics").append('<div class="row items-push overflow-hidden"> \
+      <div class="col-xs-8" data-toggle="appear" data-class="animated fadeInRight" data-timeout="400"> \
+          <div class="text-uppercase font-w600 text-white-op">'+key+'</div> \
+          <div class="font-s36 font-w300">'+value+'</div> \
+      </div> \
+  </div>');
     })
   });
 }

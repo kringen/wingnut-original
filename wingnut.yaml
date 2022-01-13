@@ -1,10 +1,22 @@
 configuration:
-  servoPin: 15
-  leftMotorPin1: 33
-  leftMotorPin2: 35
-  leftMotorEnablePin: 37
-  rightMotorPin1: 31
-  rightMotorPin2: 29
-  rightMotorEnablePin: 32
-  sonarTriggerPin: 11
-  sonarEchoPin: 13
+  gpio_pins:
+    servoPin: 15
+    leftMotorPin1: 33
+    leftMotorPin2: 35
+    leftMotorEnablePin: 37
+    rightMotorPin1: 31
+    rightMotorPin2: 29
+    rightMotorEnablePin: 32
+    sonarTriggerPin: 11
+    sonarEchoPin: 13
+  redis_url: redis://localhost:6379
+
+worker:
+  count: 3
+  queues: ["default","mode"]
+
+webapp:
+  ip_address: 0.0.0.0
+  port: 5000
+  redis_url: redis://localhost:6379
+  debug: 1

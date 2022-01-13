@@ -1,15 +1,15 @@
-import time
 import logging
 
-log = logging.getLogger("task_logger")
+logging.basicConfig(filename='example.log', level=logging.DEBUG)
 
-
-def create_task(task_type):
-    time.sleep(int(task_type) * 10)
+def create_task(queue, task_value):
+    if queue == "mode":
+        set_mode(task_value)
     return True
 
-def set_mode(mode):
-    print("Setting mode")
+def set_mode(task_value):
+    print("Setting mode: {}".format(task_value))
+    logging.debug("Setting mode: {}".format(task_value))
 
 def speak(phrase):
     print("Speaking")
