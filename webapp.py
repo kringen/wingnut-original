@@ -8,7 +8,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-with open("wingnut.yaml", "r") as configfile:
+with open("./wingnut.yaml", "r") as configfile:
             config = yaml.safe_load(configfile)
 redis_url = config["webapp"]["redis_url"]
 port = config["webapp"]["port"]

@@ -25,10 +25,14 @@
       pip:
         requirements: /home/pi/wingnut/requirements.txt
     - name: install myservice systemd unit file
-      template: 
+      ansible.builtin.copy: 
         src: /home/pi/wingnut/systemd/wingnut.j2 
         dest: /etc/systemd/system/wingnut.service
-        remore_src: yes
+        remote_src: yes
+        owner: root
+        group: root
+        mode: '0644'
+      become: yes
     - name: start wingnut
       systemd: 
         state: started 

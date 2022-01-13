@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 class Wingnut:
     def __init__(self):
-        with open("wingnut.yaml", "r") as configfile:
+        with open("./wingnut.yaml", "r") as configfile:
             self.config = yaml.safe_load(configfile)
         self.worker_count = self.config["worker"]["count"]
         self.worker_queues = self.config["worker"]["queues"]
