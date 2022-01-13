@@ -4,13 +4,16 @@ from rq import Queue, Connection, Worker
 import logging
 import lgpio
 import yaml
+import os
 
 
 logging.basicConfig(level=logging.DEBUG)
+cwd = os.path.dirname(__file__)
+
 
 class Wingnut:
     def __init__(self):
-        with open("./wingnut.yaml", "r") as configfile:
+        with open(cwd/"wingnut.yaml", "r") as configfile:
             self.config = yaml.safe_load(configfile)
         self.worker_count = self.config["worker"]["count"]
         self.worker_queues = self.config["worker"]["queues"]

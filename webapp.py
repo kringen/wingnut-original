@@ -5,10 +5,13 @@ import tasks
 import rq_dashboard
 import yaml
 import logging
+import os
 
 logging.basicConfig(level=logging.DEBUG)
 
-with open("./wingnut.yaml", "r") as configfile:
+cwd = os.path.dirname(__file__)
+
+with open(cwd/"wingnut.yaml", "r") as configfile:
             config = yaml.safe_load(configfile)
 redis_url = config["webapp"]["redis_url"]
 port = config["webapp"]["port"]
