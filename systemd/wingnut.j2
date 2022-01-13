@@ -4,6 +4,8 @@ After=multi-user.target
 
 [Service]
 Type=simple
+User=pi
+Group=pi
 Restart=always
 ExecStart=/usr/bin/python3 /home/pi/wingnut/main.py
 
