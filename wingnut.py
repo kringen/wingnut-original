@@ -17,15 +17,15 @@ class Wingnut:
             self.config = yaml.safe_load(configfile)
         self.worker_count = self.config["worker"]["count"]
         self.worker_queues = self.config["worker"]["queues"]
-        self.servoPin = self.config["configuration"]["servoPin"]
-        self.leftMotorPin1 = self.config["configuration"]["leftMotorPin1"]
-        self.leftMotorPin2 = self.config["configuration"]["leftMotorPin2"]
-        self.leftMotorEnablePin = self.config["configuration"]["leftMotorEnablePin"]
-        self.rightMotorPin1 = self.config["configuration"]["rightMotorPin1"]
-        self.rightMotorPin2 = self.config["configuration"]["rightMotorPin2"]
-        self.rightMotorEnablePin = self.config["configuration"]["rightMotorEnablePin"]
-        self.sonarTriggerPin = self.config["configuration"]["sonarTriggerPin"]
-        self.sonarEchoPin = self.config["configuration"]["sonarEchoPin"]
+        self.servoPin = self.config["configuration"]["gpio_pins"]["servoPin"]
+        self.leftMotorPin1 = self.config["configuration"]["gpio_pins"]["leftMotorPin1"]
+        self.leftMotorPin2 = self.config["configuration"]["gpio_pins"]["leftMotorPin2"]
+        self.leftMotorEnablePin = self.config["configuration"]["gpio_pins"]["leftMotorEnablePin"]
+        self.rightMotorPin1 = self.config["configuration"]["gpio_pins"]["rightMotorPin1"]
+        self.rightMotorPin2 = self.config["configuration"]["gpio_pins"]["rightMotorPin2"]
+        self.rightMotorEnablePin = self.config["configuration"]["gpio_pins"]["rightMotorEnablePin"]
+        self.sonarTriggerPin = self.config["configuration"]["gpio_pins"]["sonarTriggerPin"]
+        self.sonarEchoPin = self.config["configuration"]["gpio_pins"]["sonarEchoPin"]
 
         self.distanceCenter = 0
         self.distanceLeft = 0
