@@ -1,0 +1,13 @@
+[Unit]
+Description=Wingnut UI Service
+After=multi-user.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+Restart=always
+ExecStart=/usr/bin/python3 /home/pi/wingnut/webapp.py
+
+[Install]
+WantedBy=multi-user.target

@@ -24,7 +24,7 @@
     - name: Install required python packages
       pip:
         requirements: /home/pi/wingnut/requirements.txt
-    - name: install myservice systemd unit file
+    - name: install wingnut systemd unit file
       ansible.builtin.copy: 
         src: /home/pi/wingnut/systemd/wingnut.j2 
         dest: /etc/systemd/system/wingnut.service
@@ -35,7 +35,25 @@
       become: yes
     - name: start wingnut
       systemd: 
-        state: started 
+        state: started
+        enabled: yes 
         name: wingnut 
         daemon_reload: yes
+      become: yes
+    - name: install wingnut-ui systemd unit file
+      ansible.builtin.copy: 
+        src: /home/pi/wingnut/systemd/wingnut-ui.j2 
+        dest: /etc/systemd/system/wingnut-ui.service
+        remote_src: yes
+        owner: root
+        group: root
+        mode: '0644'
+      become: yes
+    - name: start wingnut-ui
+      systemd: 
+        state: started
+        enabled: yes 
+        name: wingnut-ui 
+        daemon_reload: yes
+      become: yes
       
