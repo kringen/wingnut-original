@@ -7,7 +7,7 @@ import yaml
 import os
 
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 cwd = os.path.dirname(__file__)
 config_file = os.path.join(cwd,"wingnut.yaml")
 

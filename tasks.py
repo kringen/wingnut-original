@@ -1,6 +1,6 @@
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 
 def create_task(queue, task_value):
     if queue == "mode":
@@ -8,7 +8,6 @@ def create_task(queue, task_value):
     return True
 
 def set_mode(task_value):
-    print("Setting mode: {}".format(task_value))
     logging.debug("Setting mode: {}".format(task_value))
 
 def speak(phrase):
