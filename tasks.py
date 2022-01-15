@@ -1,6 +1,6 @@
 import logging
 
-logging.basicConfig(filename='example.log', level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 
 def create_task(queue, task_value):
     if queue == "mode":
