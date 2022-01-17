@@ -7,7 +7,7 @@ $( document ).ready(() => {
 $('.btn').on('click', function() {
   $.ajax({
     url: '/tasks',
-    data: { "queue": $(this).data('queue'), "mode": $(this).data('mode') },
+    data: { "queue": $(this).data('queue'), "qualifier": $(this).data('qualifier') },
     method: 'POST'
   })
   .done((res) => {

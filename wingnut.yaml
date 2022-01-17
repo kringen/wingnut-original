@@ -13,7 +13,7 @@ configuration:
 
 worker:
   count: 3
-  queues: ["default","mode"]
+  queues: ["default","mode","status"]
 
 webapp:
   ip_address: 0.0.0.0

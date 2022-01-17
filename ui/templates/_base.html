@@ -44,46 +44,46 @@
           <main id="page-main">
               <!-- Columns -->
               <div class="row">
-                  <!-- Animated Circles Column -->
-                  
+                  <!-- Center Column -->
                   <div class="col-lg-6 col-lg-push-3 overflow-hidden push-20">
                     <div class="row">
-                      <div class="starter-template">
-                        <a href="/rq">rq dashboard</a>
-                        <br />
-                        <div>
-                          <h3>Task Status</h3>
-                          <br>
-                          <table class="table">
-                            <thead>
-                              <tr>
-                                <th>ID</th>
-                                <th>Status</th>
-                                <th>Result</th>
-                              </tr>
-                            </thead>
-                            <tbody id="tasks">
-                            </tbody>
-                          </table>
+                        <div class="block">
+                            <div class="block-header overflow-hidden">
+                                <h2 class="block-title visibility-hidden" data-toggle="appear" data-class="animated fadeInDown">Mode</h2>
+                            </div>
+                            <div class="block-content" id="mode-buttons">
+                                
+                            </div>
                         </div>
-                      </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-6 visibility-hidden" data-toggle="appear" data-class="animated fadeInLeft" data-timeout="100">
-                          <button type="button" class="btn btn-xl btn-block btn-sf push-10" data-queue="mode" data-mode="autonomous">Autonomous Mode</button>
+                          <button type="button" class="btn btn-xl btn-block btn-sf push-10" data-queue="mode" data-qualifier="autonomous">Autonomous</button>
                         </div>
                         <div class="col-xs-6 visibility-hidden" data-toggle="appear" data-class="animated fadeInRight" data-timeout="100">
-                            <button class="btn btn-xl btn-block btn-sf push-10">PO_DATABASE</button>
+                            <button class="btn btn-xl btn-block btn-sf push-10" data-queue="mode" data-qualifier="voice-directed">Voice Directed</button>
                         </div>
                         <div class="col-xs-6 visibility-hidden" data-toggle="appear" data-class="animated fadeInLeft" data-timeout="500">
-                            <button class="btn btn-xl btn-block btn-sf">ACTIVE_ROUTE</button>
+                            <button class="btn btn-xl btn-block btn-sf push-10" data-queue="mode" data-qualifier="commandline">Commandline</button>
                         </div>
                         <div class="col-xs-6 visibility-hidden" data-toggle="appear" data-class="animated fadeInRight" data-timeout="500">
-                            <button class="btn btn-xl btn-block btn-sf">AUTO_PILOT</button>
+                            <button class="btn btn-xl btn-block btn-sf push-10" data-queue="mode" data-qualifier="standby">Standby</button>
                         </div>
+                        <div class="col-xs-6 visibility-hidden" data-toggle="appear" data-class="animated fadeInLeft" data-timeout="100">
+                            <button type="button" class="btn btn-xl btn-block btn-sf push-10" data-queue="status" data-qualifier="nothing">Get Status</button>
+                          </div>
+                          <div class="col-xs-6 visibility-hidden" data-toggle="appear" data-class="animated fadeInRight" data-timeout="100">
+                              <button class="btn btn-xl btn-block btn-sf push-10" data-queue="mode" data-qualifier="voice-directed">Voice Directed</button>
+                          </div>
+                          <div class="col-xs-6 visibility-hidden" data-toggle="appear" data-class="animated fadeInLeft" data-timeout="500">
+                              <button class="btn btn-xl btn-block btn-sf push-10" data-queue="mode" data-qualifier="commandline">Commandline</button>
+                          </div>
+                          <div class="col-xs-6 visibility-hidden" data-toggle="appear" data-class="animated fadeInRight" data-timeout="500">
+                              <button class="btn btn-xl btn-block btn-sf push-10" data-queue="mode" data-qualifier="standby">Standby</button>
+                          </div>
                     </div>
                 </div>
-                <!-- END Animated Circles Column -->
+                <!-- END Center Column -->
 
                   <!-- Left Column -->
                   <div class="col-sm-6 col-lg-3 col-lg-pull-6">

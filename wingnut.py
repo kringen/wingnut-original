@@ -45,21 +45,6 @@ class Wingnut:
                 worker = Worker(self.worker_queues)
                 multiprocessing.Process(target=worker.work).start()
 
-    def set_diagnostics(self):
-        ##### SHOULD THIS GO HERE?
-        ### NO - maybe move it to its own service?
-        diagnostics = {}
-        diagnostics["power_level"] = 100
-        diagnostics["temperature"] = 40
-        diagnostics["free_memory_mb"] = 500
-        diagnostics["free_disk_space"] = 20
-        r = Redis()
-        r.mset(diagnostics)
-
-
 if __name__ == "__main__":
     wingnut = Wingnut()
-    wingnut.set_diagnostics()
     wingnut.start_workers()
-    #wingnut.start_ui()
-    #wingnut.get_diagnostics()

@@ -37,24 +37,10 @@ def home():
 @app.route("/tasks", methods=["POST"])
 def run_task():
     queue = request.form["queue"]
-    task_type = request.form["mode"]
+    qualifier = request.form["qualifier"]
     with Connection(redis.from_url(redis_url)):
         q = Queue()
-        task = q.enqueue(tasks.create_task, queue, task_type)
-    response_object = {
-        "status": "success",
-        "data": {
-            "task_id": task.get_id()
-        }
-    }
-    return jsonify(response_object), 202
-
-@app.route("/mode", methods=["POST"])
-def set_mode():
-    mode = request.form["mode"]
-    with Connection(redis.from_url(redis_url)):
-        q = Queue("mode")
-        task = q.enqueue(tasks.create_task, mode)
+        task = q.enqueue(tasks.create_task, queue, qualifier)
     response_object = {
         "status": "success",
         "data": {
@@ -96,8 +82,8 @@ def get_diagnostics():
     diagnostics = {}
     diagnostics["power_level"] = "{} %".format(r.get("power_level").decode("utf-8"))
     diagnostics["temperature"] = "{} C&deg;".format(r.get("temperature").decode("utf-8"))
-    diagnostics["free_memory_mb"] = "{} GB".format(r.get("free_memory_mb").decode("utf-8"))
-    diagnostics["free_disk_space"] = "{} MB".format(r.get("free_disk_space").decode("utf-8"))
+    diagnostics["free_memory_mb"] = "{} MB".format(r.get("free_memory_mb").decode("utf-8"))
+    diagnostics["free_disk_space"] = "{} GB".format(r.get("free_disk_space").decode("utf-8"))
 
     response_object = {
         "status": "success",

@@ -7,3 +7,5 @@ lgpio
 pyyaml
 pytest
 flask-restplus
+boto3
+psutil
