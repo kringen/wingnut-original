@@ -9,6 +9,9 @@
 # Start a worker
 python3 worker.py &
 
+# Start the web server
+python3 webapp.py &
+
 # Start the primary process
 python3 main.py
   
